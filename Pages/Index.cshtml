@@ -1,0 +1,48 @@
+﻿@page
+@{
+    ViewData["Title"] = "Form Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Page</title>
+</head>
+<body>
+    <form id="myForm">
+        <label for="valueInput">Value:</label>
+        <input type="text" id="valueInput" name="valueInput" required>
+
+        <label for="dateTimeInput">Date and Time:</label>
+        <input type="datetime-local" id="dateTimeInput" name="dateTimeInput" required>
+
+        <button type="button" onclick="submitForm()">Submit to Server</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            var value = document.getElementById('valueInput').value;
+            var dateTime = document.getElementById('dateTimeInput').value;
+
+            // Send data to the server (you can use AJAX for this)
+            // In this example, fetch is used to send a POST request
+            fetch('/process_form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ value: value, dateTime: dateTime }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Data successfully sent to the server.');
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+</html>
